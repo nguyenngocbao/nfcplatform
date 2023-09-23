@@ -1,0 +1,24 @@
+<div class="portlet light bordered" name="section" data-number="<?= $section['sort'] ?>">
+    <input name="section_sort" value="<?= $section['sort'] ?>" hidden>
+    <input name="section_id" value="<?= $section['id'] ?>" hidden>
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-equalizer font-dark hide"></i>
+            <span name="section-title"
+                  class="caption-subject font-dark bold uppercase">Section <?= $section['sort'] ?></span>
+        </div>
+        <div class="tools">
+            <a href="" class="collapse" data-original-title="" title=""> </a>
+            <a href="" class="delete-section" data-id="<?= $section['id'] ?>"> </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div name="group-content" class="group-content">
+            <?= $groupHtml ?>
+        </div>
+        <a href="javascript:;" class="btn green btn-outline add-question-group">
+            <i class="fa fa-plus"></i> <span>Thêm nhóm câu hỏi</span>
+        </a>
+
+    </div>
+</div>

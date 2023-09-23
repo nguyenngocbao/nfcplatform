@@ -1,0 +1,26 @@
+<div class="row clearfix">
+    <div class="col-md-12 panel-group accordion">  
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h2 class="panel-title">
+                    <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?=$crc32_title?>" aria-expanded="true"><?=$title?></a>
+                </h2>
+            </div>
+            <div id="collapse_<?=$crc32_title?>" class="panel-collapse collapse in" aria-expanded="true">
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <?=$manager?'<th style="font-size:11px;background-color:#5E738B;color:#fff;width:130px">Chức năng'.$add.'</th>':''?>
+                                <?php foreach ($col as $c) : ?>
+                                    <th style="font-size:11px;background-color:#5E738B;color:#fff"><?= $c['name'] ?></th>
+                                <?php endforeach ?>
+                            </tr>
+                        </thead>
+                        <tbody><?=$body?></tbody>
+                    </table>    
+                </div>
+            </div>
+        </div>      
+    </div>
+</div>

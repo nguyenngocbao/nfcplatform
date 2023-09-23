@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label class="control-label">Đơn vị triển khai</label>
+    <select name="implementation_unit_search" id="implementation_unit_search" class="form-filter form-control">
+        <option value="">Chọn Đơn vị triển khai</option>
+        <?php foreach (config('info.implementation_unit') as $v) : ?>
+            <?=$selected=($get??0) && isset($_GET['unit']) && $v['id']==$_GET['unit']?'selected':''?>
+            <option value="<?=$v['id']?>" <?=$selected?>><?=$v['name']?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

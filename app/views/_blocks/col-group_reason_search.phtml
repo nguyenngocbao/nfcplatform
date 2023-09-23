@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label class="control-label">Nhóm Lý do</label>
+    <select name="group_reason_search" id="group_reason_search" class="form-filter form-control">
+        <option value="0">Chọn Nhóm Lý do</option>
+        <?php foreach ($group_reason as $r) : ?>
+            <option value="<?= $r['id'] ?>"><?= $r['name'] ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

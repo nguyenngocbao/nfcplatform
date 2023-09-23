@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label class="control-label">Trạng thái QC</label>
+    <select name="qc_status_search" id="qc_status_search" class="form-filter form-control">
+        <option value="0">Chọn Trạng thái QC</option>
+        <?php foreach (config('info.qc_status') as $k=>$v) : ?>
+            <option value="<?= $k ?>"><?= $v ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

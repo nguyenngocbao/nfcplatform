@@ -1,0 +1,42 @@
+<div class="main-sidebar sidebar-style-2">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            <a> <img alt="image" src="<?= config('app.view_static') ?>/static/global/img/logo.png" class="header-logo"/>
+                <span
+                        class="logo-name">NFC Platform</span>
+            </a>
+        </div>
+        <ul class="sidebar-menu">
+            <?php $permission = permission();
+            foreach ($menu as $group => $group_menus) : ?>
+                <li class="menu-header"><?= $group ?></li>
+                <?php foreach ($group_menus as $item => $item_value) : ?>
+
+                    <?php if ($subitems = $item_value['submenu']) { ?>
+                        <li class="dropdown">
+                            <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="<?= $item_value['icon'] ?>"
+                                        ></i><span><?= $item ?></span></a>
+                            <ul class="dropdown-menu">
+                                <?php foreach ($subitems as  $subitem ) : ?>
+                                    <li><a class="nav-link" href="<?= $subitem['url'] ?>"><?= $subitem['name'] ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+                    <?php } else { ?>
+                        <li class="dropdown">
+                            <a href="<?= $item_value['url'] ?>" class="nav-link"><i data-feather="<?= $item_value['icon'] ?>" ></i><span><?= $item ?></span></a>
+                        </li>
+                    <?php } ?>
+
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+        </ul>
+    </aside>
+</div>
+<script>
+    $(function () {
+        const pos = window.location.href.includes('permission') ? 3 : 4;
+        const href = window.location.href.replace(window.location.origin, '').split('/').slice(0, pos).join('/');
+        $('a[href="' + href + '"]').parents('li').addClass('active open'); // Set active menu
+    });
+</script>

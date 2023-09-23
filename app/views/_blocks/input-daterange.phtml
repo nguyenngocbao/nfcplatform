@@ -1,0 +1,13 @@
+<?php
+$pos_clear = $pos_clear ?? 1;
+$pos_start = $pos_clear;
+$pos_end = $pos_clear + 1;
+?>
+<div class="form-group">
+    <label class="control-label"><?=$label?></label>
+    <div class="input-daterange input-group">
+        <input type="text" class="form-filter input-sm form-control text-clear-date<?=$pos_start?>" name="<?=$start_name?>" id="<?=$start_name?>" readonly /><span class="input-group-addon clear-date<?=$pos_start?>" style="border-width: 1px 1px 1px 0px;"><i class="glyphicon glyphicon-th"></i></span>
+        <span class="input-group-addon">đến</span>
+        <input type="text" class="form-filter input-sm form-control text-clear-date<?=$pos_end?>" name="<?=$end_name?>" id="<?=$end_name?>" readonly /><span class="input-group-addon clear-date<?=$pos_end?>"><i class="glyphicon glyphicon-th"></i></span>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label class="control-label">Độ ưu tiên</label>
+    <select name="priority_search" id="priority_search" class="form-filter form-control">
+        <option value="0">Chọn độ ưu tiên</option>
+        <?php foreach (config('info.priority') as $v) : ?>
+            <option value="<?= $v['id'] ?>"><?= $v['name'] ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

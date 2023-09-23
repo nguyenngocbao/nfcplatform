@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label class="control-label">Nguồn tham khảo</label>
+    <select name="source_search" id="source_search" class="form-filter form-control select2" multiple style="width:100%">
+        <option value="0">Chọn nguồn tham khảo</option>
+        <?php foreach ($source as $v) : ?>
+            <?=$selected=($get??0) && isset($_GET['source']) && $v['id']==$_GET['source']?'selected':''?>
+            <option value="<?= $v['id'] ?>" <?=$selected?>><?= $v['name'] ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

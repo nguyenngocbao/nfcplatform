@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label class="control-label">Phường xã</label>
+    <select name="ward_search" id="ward_search" class="form-filter form-control select2">
+        <option value="0">Chọn phường xã</option>
+        <?php foreach ($ward as $v) : ?>
+            <option value="<?= $v['id'] ?>"><?= $v['name'] ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

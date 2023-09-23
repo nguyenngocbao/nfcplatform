@@ -1,0 +1,11 @@
+<div class="form-group">
+    <label class="control-label"><?=$label?></label>    
+    <?php if ($icon??0) : ?>
+        <div class="input-icon">
+            <i class="fa <?=$icon?>"></i>
+            <input type="text" name="<?=$name?>" id="<?=$name?>" value="" class="form-filter form-control" placeholder="<?=$label?>" autocomplete="no_fill">
+        </div>
+    <?php else : ?>
+        <input type="text" name="<?=$name?>" id="<?=$name?>" value="" class="form-filter form-control" placeholder="<?=$label?>" autocomplete="no_fill">
+    <?php endif; ?>    
+</div>

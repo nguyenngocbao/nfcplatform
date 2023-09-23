@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label class="control-label">Quận huyện</label>
+    <select name="district_search" id="district_search" class="form-filter form-control select2">
+        <option value="0">Chọn quận huyện</option>
+        <?php foreach ($district as $v) : ?>
+            <option value="<?= $v['name'] ?>" data-id="<?= $v['id'] ?>"><?= $v['name'] ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label class="control-label">Cách thức triển khai</label>
+    <select name="store_type_search" id="store_type_search" class="form-filter form-control">
+        <option value="0">Chọn Cách thức triển khai</option>
+        <?php foreach (config('info.store_type') as $k=>$v) : ?>
+            <?=$selected=($get??0) && isset($_GET['type_id']) && $v['id']==$_GET['type_id']?'selected':''?>
+            <option value="<?= $v['id'] ?>" <?=$selected?>><?= $v['name'] ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

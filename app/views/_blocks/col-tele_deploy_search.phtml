@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label class="control-label">Chi tiết triển khai</label>
+    <select name="tele_deploy_search" id="tele_deploy_search" class="form-filter form-control">
+        <option value="0">Chọn Chi tiết triển khai</option>
+        <?php foreach (config('info.tele_deploy') as $k=>$v) : ?>
+            <option value="<?= $k ?>"><?= $v ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

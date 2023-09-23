@@ -1,0 +1,15 @@
+<?php if ($check ?? 1) : ?>
+<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+    <a class="dashboard-stat dashboard-stat-v2 <?=$color?>" href="<?=url($url)?>">
+        <div class="visual">
+            <i class="fa <?=$icon?>"></i>
+        </div>
+        <div class="details">
+            <div class="number">
+                <span><?=$count?></span>
+            </div>
+            <div class="desc"><?=$desc?></div>
+        </div>
+    </a>
+</div>
+<?php endif; ?>

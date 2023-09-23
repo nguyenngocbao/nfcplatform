@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label class="control-label">Nhân viên off</label>
+    <select name="salesman_off_search" id="salesman_off_search" class="form-filter form-control select2">
+        <option value="0">Chọn Nhân viên off</option>
+        <?php foreach ($salesman_off as $v) : ?>
+            <option value="<?= $v['username'] ?>"><?= $v['username_show'] ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

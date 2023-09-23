@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label class="control-label">Hình thức triển khai</label>
+    <select name="deploy_search" id="deploy_search" class="form-filter form-control">
+        <option value="0">Chọn Hình thức triển khai</option>
+        <?php foreach (config('info.deploy') as $v) : ?>
+            <?=$selected=($get??0) && isset($_GET['deploy']) && $v==$_GET['deploy']?'selected':''?>
+            <option value="<?= $v ?>" <?=$selected?>><?= $v ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>

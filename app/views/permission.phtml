@@ -1,0 +1,284 @@
+<style>
+    .panel {
+        margin-bottom: 20px!important;
+    }
+    .col-md-3 {
+        height: 360px;
+    }    
+    .panel-title {
+        padding-left: 30px!important;
+    }
+    .checkbox-title {
+        margin-right: 10px!important;
+    }
+    .panel .panel-title {
+        font-weight: 600;
+        color: blue;
+    }
+    .controller-title {
+        color: green;
+        font-weight: 400;
+    }
+</style>
+<link href="<?=config('app.view_static')?>/static/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="<?=config('app.view_static')?>/static/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="<?=config('app.view_static')?>/static/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="<?=config('app.view_static')?>/static/global/plugins/ladda/ladda-themeless.min.css"type="text/css" />
+<script src="<?=config('app.view_static')?>/static/global/plugins/ladda/spin.min.js"></script>
+<script src="<?=config('app.view_static')?>/static/global/plugins/ladda/ladda.min.js"></script>
+<script src="<?=config('app.view_static')?>/static/pages/scripts/load-init.js?v=<?=time()?>" type="text/javascript"></script>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <?php if ($msg) : ?>        
+            <h1 class="text-center"><span class="font-red-haze"><?= $msg ?></span></h1>
+        <?php else : ?>
+            <h1 class="text-center"><span class="font-blue"><?= $success ?></span></h1>
+            <form method="POST" onsubmit="run_submit()" action="<?=url('role/permission/update/'.$id)?>">
+                <div>
+                    <a href="<?=url('role')?>"><button class="btn gray" type="button" id="return">Quay về trang danh sách Quyền</button></a>
+                </div>
+                <div style="display:flex; justify-content: space-between">
+                    <h1 class="page-title font-dark bold uppercase"><i class="fa <?= $icon ?>"></i> <?= $title ?></h1>
+                    <button class="btn blue" type="submit" name="submit" id="submit" data-style="expand-down" data-size="xl">Cập nhật</button> 
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Hiện thị Store theo Đơn vị triển khai</label>
+                            <select name="implementation_unit[]" id="implementation_unit" multiple class="form-control select2" style="width:100%">
+                                <?php foreach (config('info.implementation_unit') as $v) : ?>
+                                <option value="<?=$v['id']?>"><?=$v['name']?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Hiện thị Store theo tỉnh thành</label> 
+                            <button type="button" class="btn purple-sharp btn-xs" id="add-all-city">Thêm All</button>
+                            <select name="city[]" id="city" multiple class="form-control select2" style="width:100%">
+                                <?php foreach ($city as $v) : ?>
+                                <option value="<?=$v['id']?>"><?=$v['name']?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label">Hiện thị Nguồn tham khảo</label>
+                            <select name="source[]" id="source" multiple class="form-control select2" style="width:100%">
+                                <?php foreach ($source as $v) : ?>
+                                <option value="<?=$v['id']?>"><?=$v['name']?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding:15px 0 10px">
+                    <div class="md-checkbox has-info">
+                        <input type="checkbox" id="select-all" class="md-check">
+                        <label for="select-all">
+                            <span></span>
+                            <span class="check"></span>
+                            <span class="box"></span> Chọn hết chức năng</label>
+                    </div>
+                </div>
+                <div class="panel-group accordion" id="accordion">
+                    <div class="row">
+                        <?php $flag_check_all = true; ?>
+                        <?php foreach (config('title.group') as $group => $controllers) : ?>
+                            <?php 
+                            $default = strlen($group);
+                            $group = str_replace('|default', '', $group); 
+                            $default = $default != strlen($group);
+                            
+                            $disabled = $check = '';
+                            if ($default) {
+                                $check = 'checked';
+                                $disabled = 'disabled';//onclick="return false;"
+                            }                             
+                            ?>
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">
+                                        <a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion" href="#collapse_<?= crc32($group) ?>" aria-expanded="true"><?= $group ?></a>
+                                    </h2>
+                                </div>
+                                <div id="collapse_<?= crc32($group) ?>" class="panel-collapse collapse" aria-expanded="true">
+                                    <div class="panel-body">
+                                        
+                                        <?php foreach ($access as $controller => $method) : ?>
+                                        <?php
+                                        if (!in_array($controller, $controllers)) {
+                                            continue;
+                                        }
+                                        $title = $description('controller', $controller);
+                                        $controller = replace_namespace_controller($controller);
+                                        ?>
+
+                                        <div class="portlet light bordered">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                <h4 class="controller-title">
+                                                    <?php if (!$disabled) : ?>
+                                                    <label class="mt-checkbox mt-checkbox-outline"><input type="checkbox" id="<?= $controller ?>" <?= $check ?> <?= $disabled ?> class="permission checkbox-title"> <?= $title ?><span></span></label>
+                                                    <?php else : ?>
+                                                        <?= $title ?>
+                                                    <?php endif; ?>                                                    
+                                                </h4>
+                                                </div>
+                                                <div class="tools">
+                                                    <a href="" class="collapse"> </a>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body form">
+                                                <div class="form-group">
+                                                    <div class="mt-checkbox-list">
+                                                        <?php 
+                                                        $flag_check = true; 
+                                                        $_list_method_tmp = [];
+                                                        ?>                                                                    
+                                                        <?php foreach ($method as $m) : ?>
+                                                        <?php
+                                                        if (in_array($m[1], $_list_method_tmp)) {
+                                                            continue;
+                                                        } else {
+                                                            $_list_method_tmp[] = $m[1];
+                                                        }
+                                                        $name = $controller . '@' . $m[1];
+                                                        if ($default) {
+                                                            $check = 'checked';
+                                                        } else {
+                                                            $check = in_array($name, $permission) ? 'checked' : '';
+                                                        }
+
+                                                        if (!$check && $flag_check_all) {
+                                                            $flag_check_all = false;
+                                                        }
+                                                        if (!$check && $flag_check) {
+                                                            $flag_check = false;
+                                                        }
+                                                        ?>
+                                                        <?php if (!$disabled) : ?>
+                                                            <label class="mt-checkbox mt-checkbox-outline"><?= $description('action', $m[1]) ?>
+                                                                <input type="checkbox" <?= $check ?> <?= $disabled ?> value="<?= $name ?>" name="permission[]" class="permission <?= $controller ?>">
+                                                                <span></span>
+                                                            </label>
+                                                        <?php else : ?>
+                                                            <p><?= $description('action', $m[1]) ?></p>
+                                                            <input type="hidden" value="<?= $name ?>" name="permission[]" class="permission <?= $controller ?>">
+                                                        <?php endif; ?>   
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            <?php
+                                            if ($flag_check) {
+                                                echo "$('#{$controller}').prop('checked', true);";
+                                            }
+                                            ?>
+
+                                            $('.<?= $controller ?>').click(function () {
+                                                if (this.checked) {
+                                                    var check = true;
+                                                    $('input.<?= $controller ?>:checkbox').each(function () {
+                                                        if ($(this).attr('id') !== '<?= $controller ?>' && this.checked === false) {
+                                                            check = false;
+                                                        }
+                                                    });
+                                                    $('#<?= $controller ?>').prop('checked', check);
+                                                } else {
+                                                    $('#<?= $controller ?>').prop('checked', false);
+                                                }
+                                            });
+
+                                            $('#<?= $controller ?>').click(function () {
+                                                if (this.checked) {
+                                                    $('input.<?= $controller ?>:checkbox').each(function () {
+                                                        this.checked = true;
+                                                    });
+                                                } else {
+                                                    $('input.<?= $controller ?>:checkbox').each(function () {
+                                                        this.checked = false;
+                                                    });
+                                                }
+                                            });
+                                        </script>
+                                    <?php endforeach; ?>  
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </form>
+            <script>
+            <?php
+            if ($flag_check_all) {
+                echo "$('#select-all').prop('checked', true);";
+            }
+            if ($implementation_unit_list) {
+                echo "var implementation_unit_list = '{$implementation_unit_list}';";
+                echo "$('#implementation_unit').val(implementation_unit_list.split(',')).trigger('change');";
+            }
+            if ($city_list) {
+                echo "var city_list = '{$city_list}';";
+                echo "$('#city').val(city_list.split(',')).trigger('change');";
+            }
+            if ($source_list) {
+                echo "var source_list = '{$source_list}';";
+                echo "$('#source').val(source_list.split(',')).trigger('change');";
+            }
+            ?> 
+            </script>
+        <?php endif; ?>        
+    </div>
+</div>
+<script>
+jQuery(document).ready(function () {
+    $('.permission').click(function () {
+        if (this.checked) {
+            var check = true;
+            $(':checkbox').each(function () {
+                if ($(this).attr('id') !== 'select-all' && this.checked === false) {
+                    check = false;
+                }
+            });
+            $('#select-all').prop('checked', check);
+        } else {
+            $('#select-all').prop('checked', false);
+        }
+    });
+    $('#select-all').click(function () {
+        if (this.checked) {
+            $(':checkbox').each(function () {
+                this.checked = true;
+            });
+        } else {
+            $(':checkbox').each(function () {
+                this.checked = false;
+            });
+        }
+    });
+    $('#add-all-city').click(function () {
+        <?php
+        $city_ids = [];
+        foreach ($city as $v) {
+            $city_ids[] = $v['id'];
+        }
+        $city_ids = join_list($city_ids);
+        ?>
+        $('#city').val([<?=$city_ids?>]).trigger('change');
+    });
+});    
+
+function run_submit() {
+    var l = Ladda.create( document.querySelector( '#submit' ) );
+    l.start();
+}
+</script>

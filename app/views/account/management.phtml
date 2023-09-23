@@ -1,0 +1,330 @@
+<link rel="stylesheet" href="<?=config('app.view_static')?>/static/global/plugins/datatables/datatables.min.css"/>
+<link rel="stylesheet" href="<?=config('app.view_static')?>/static/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css"/>
+<script src="<?=config('app.view_static')?>/static/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+<script src="<?=config('app.view_static')?>/static/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+<script src="<?=config('app.view_static')?>/static/global/scripts/hs-datatable.js" type="text/javascript"></script>
+<link href="<?=config('app.view_static')?>/static/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+<link href="<?=config('app.view_static')?>/static/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="<?=config('app.view_static')?>/static/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+<link href="<?=config('app.view_static')?>/static/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+<script src="<?=config('app.view_static')?>/static/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="<?=config('app.view_static')?>/static/pages/scripts/load-init.js?v=<?=time()?>" type="text/javascript"></script>
+<script src="<?=config('app.view_static')?>/static/pages/scripts/account-management.js?v=<?=time()?>" type="text/javascript"></script>
+<style>
+    .text-bold {font-weight: 800}
+    .role-salesman {color:green; font-weight: 800}
+    .avatar {width:125px;border: 4px solid #e7ecf1}
+    @media (min-width: 1200px) {
+        .modal-lg { width: 1400px; } 
+    }
+</style>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <h1 class="page-title font-dark bold uppercase"><i class="fa <?= $icon ?>"></i> <?= $title ?></h1>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-body form filter">
+                        
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <?=block('input-text-filter', ['label'=>'Tên đăng nhập', 'name'=>'username_search'])?>                                        
+                                </div>
+                                <div class="col-md-3">
+                                    <?=block('input-text-filter', ['label'=>'Họ tên', 'name'=>'fullname_search'])?>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Người quản lý</label>
+                                        <select name="manager_search" id="manager_search" class="form-filter form-control select2">
+                                            <option value="0">Chọn Người quản lý</option>
+                                            <?php foreach ($manager as $v) : ?>
+                                            <option value="<?=$v?>"><?=$v?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Nhóm quyền</label>
+                                        <select name="role_search" id="role_search" class="form-filter form-control select2">
+                                            <option value="0">Chọn Nhóm quyền</option>
+                                            <?php foreach ($role as $v) : ?>
+                                            <option value="<?=$v['id']?>"><?=$v['name']?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <?= block('col-implementation_unit_search') ?>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Tỉnh thành quản lý</label>
+                                        <select name="city_search" id="city_search" class="form-filter form-control select2">
+                                            <option value="">Chọn Tỉnh thành quản lý</option>
+                                            <?php foreach ($city as $v) : ?>
+                                            <option value="<?=$v['id']?>"><?=$v['name']?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Nguồn tham khảo quản lý</label>
+                                        <select name="source_search" id="source_search" class="form-filter form-control">
+                                            <option value="0">Chọn Nguồn tham quản lý</option>
+                                            <?php foreach ($source as $v) : ?>
+                                            <option value="<?=$v['id']?>"><?=$v['name']?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Trạng thái</label>
+                                        <select name="status_search" id="status_search" class="form-filter form-control">
+                                            <option value="">Chọn Trạng thái</option>
+                                            <option value="1">Mở</option>
+                                            <option value="0">Tắt</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions right">
+                            <?= allow_acl('list', AccountController::class) ? block('button-search') : '' ?> 
+                            <?= allow_acl('update', AccountController::class) ? block('button-add') : '' ?> 
+                            <?= allow_acl('export', AccountController::class) ? block('button-export') : '' ?>
+                        </div>
+                        <div id="div_msg_pass" style="padding: 10px; text-align: center;" class="display-hide">
+                            <span id="msg_pass" style="font-size: 20px;"></span>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <form role="form">
+            <input type="hidden" id="id">                            
+            <div class="modal fade bs-modal-lg" id="modalEdit" role="basic" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title" id="titleEdit"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <?=block('input-text', ['label'=>'Tên đăng nhập', 'name'=>'username', 'required'=>1])?>
+                                </div>
+                                <div class="col-md-4">         
+                                    <?=block('input-text', ['label'=>'Mật khẩu', 'name'=>'password', 'type'=>'password'])?>
+                                </div>     
+                                <div class="col-md-4">
+                                    <?=block('input-text', ['label'=>'Họ tên', 'name'=>'fullname', 'required'=>1])?>
+                                </div>
+                            </div>
+
+                            <div class="row">                                                    
+                                <div class="col-md-2">
+                                    <?=block('input-text', ['label'=>'Email', 'name'=>'email'])?>                                                        
+                                </div>   
+                                <div class="col-md-2">
+                                    <?=block('input-text', ['label'=>'Số điện thoại', 'name'=>'phone', 'type'=>'number'])?>
+                                </div>       
+                                <div class="col-md-2">
+                                    <?=block('input-text', ['label'=>'Responder ID (Ticket-ZLP)', 'name'=>'responder_id', 'type'=>'number'])?>
+                                </div>   
+                                <div class="col-md-2">
+                                    <?=block('input-text', ['label'=>'Requester ID (Ticket-ZLP)', 'name'=>'requester_id', 'type'=>'number'])?>
+                                </div>       
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="status">Miền</label><br>       
+                                        <label>
+                                            <select id="location"name="location" class="form-control">
+                                                <option value="">Chọn miền</option>
+                                                <option value="hn">Hà Nội</option>
+                                                <option value="hcm">Hồ Chí Minh</option>
+                                            </select>
+                                        </label>   
+                                    </div>
+                                </div> 
+                                <div class="col-md-2">
+                                    <?=block('input-switch', ['label'=>'Trạng thái', 'name'=>'status'])?>
+                                </div>
+                            </div>                                                
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Ghi chú</label>
+                                        <textarea id="note" name="note" class="form-control" rows="3" cols="50"></textarea>  
+                                    </div>
+                                </div>
+                            </div>    
+
+                            <fieldset style="padding:20px;border: 1px solid #c0c0c0;">
+                                <legend style="border-bottom:unset;width:unset;margin-bottom:unset;">Phân quyền</legend>
+                                <div class="row"> 
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="status">Hiện salesman / telesale theo ĐVTK</label>
+                                            <span class="role-salesman" title="Phân quyền thấy salesman"> ** </span><br>
+                                            <label>
+                                                <input type="checkbox" data-toggle="switch" data-on-color="primary" data-off-color="primary" data-on-text="Hiện" data-off-text="Không" checked id="view_all_salesman" name="view_all_salesman" value="1">
+                                                <span class="toggle"></span>
+                                            </label>   
+                                        </div>
+                                    </div>                                                    
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="assign_salesman">Gán salesman / telesale</label>
+                                            <span class="role-salesman" title="Phân quyền cho phép gán salesman"> ** </span><br>
+                                            <label>
+                                                <input type="checkbox" data-toggle="switch" data-on-color="primary" data-off-color="primary" data-on-text="Có" data-off-text="Không" id="assign_salesman" name="assign_salesman" value="1">
+                                                <span class="toggle"></span>
+                                            </label>   
+                                        </div>
+                                    </div> 
+                                
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="qc">QC</label>
+                                            <span class="role-salesman" title="Phân quyền cho phép QC"> ** </span><br>
+                                            <label>
+                                                <input type="checkbox" data-toggle="switch" data-on-color="primary" data-off-color="primary" data-on-text="Có" data-off-text="Không" id="qc" name="qc" value="1">
+                                                <span class="toggle"></span>
+                                            </label>   
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="qc">Telesale</label>
+                                            <span class="role-salesman" title="Phân quyền cho phép Telesale"> ** </span><br>
+                                            <label>
+                                                <input type="checkbox" data-toggle="switch" data-on-color="primary" data-off-color="primary" data-on-text="Có" data-off-text="Không" id="telesale" name="telesale" value="1">
+                                                <span class="toggle"></span>
+                                            </label>   
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">                                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Chức danh</label>
+                                            <span class="role-salesman" title="Phân quyền thấy salesman"> ** </span>
+                                            <select name="title" id="title" class="form-control">
+                                                <option value="">Chọn chức danh</option>
+                                                <?php foreach (config('info.account_title') as $v) : ?>
+                                                <option value="<?=$v['id']?>"><?=$v['name']?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Người quản lý</label>
+                                            <span class="role-salesman" title="Phân quyền thấy salesman"> ** </span>
+                                            <select name="manager" id="manager" multiple class="form-control select2" style="width:100%">
+                                                <?php foreach ($manager as $v) : ?>
+                                                <option value="<?=$v?>"><?=$v?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Nhóm quyền</label>
+                                            <span class="required"> * </span>
+                                            <select name="role_list" id="role_list" multiple class="form-control select2" style="width:100%">
+                                                <?php foreach ($role as $v) : ?>
+                                                <option value="<?=$v['id']?>"><?=$v['name']?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Đơn vị triển khai (ĐVTK)</label>
+                                            <p class="text-bold">
+                                            <span id="implementation_unit_list"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Tỉnh thành quản lý</label>
+                                            <p class="text-bold">
+                                            <span id="city_list"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Nguồn tham khảo</label>
+                                            <p class="text-bold">
+                                            <span id="source_list"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>                                                                                            
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn dark btn-outline" data-dismiss="modal">Đóng</button>
+                            <button type="button" id="btn-update" class="btn green">Đồng ý</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="table-container">
+                    <table class="table table-striped table-bordered table-hover table-checkable"
+                           id="device-table"
+                           data-url="<?=url('account/list')?>">
+                        <thead>
+                            <tr role="row" style="background-color: #5E738B">
+                                <th width="5%" class="th-header">STT&nbsp;#</th>
+                                <th width="5%" class="th-header">Avatar</th>
+                                <th width="10%" class="th-header">Tên đăng nhập</th>
+                                <th width="13%" class="th-header">Họ tên</th>
+                                <th width="10%" class="th-header">Người Quản lý</th>
+                                <th width="10%" class="th-header">Nhóm quyền</th>
+                                <th width="10%" class="th-header">Đơn vị triển khai (ĐVTK)</th>
+                                <th width="10%" class="th-header">Tỉnh thành quản lý</th>
+                                <th width="10%" class="th-header">Nguồn tham khảo</th>
+                                <th width="5%" class="th-header">Gán salesman / telesale</th>
+                                <th width="5%" class="th-header">Hiện salesman/ telesale theo ĐVTK</th>
+                                <th width="5%" class="th-header">QC</th>
+                                <th width="5%" class="th-header">Telesale</th>
+                                <th width="7%" class="th-header">Trạng thái</th>
+                                <th width="7%" class="th-header">Ngày tạo</th>
+                                <th width="7%" class="th-header">Người tạo</th>
+                                <th width="10%" class="th-header">Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

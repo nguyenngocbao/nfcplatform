@@ -1,0 +1,12 @@
+<div class="form-group">
+    <label class="control-label"><?=$label?></label>
+    <?php if ($required??0) : ?><span class="required"> * </span><?php endif; ?>
+    <?php if ($icon??0) : ?>
+        <div class="input-icon">
+            <i class="fa <?=$icon?>"></i>
+            <input required type="<?=$type??'text'?>" name="<?=$name?>" id="<?=$name?>" value="" class="form-control" placeholder="<?=$label?>" autocomplete="no_fill">
+        </div>
+    <?php else : ?>
+        <input required type="<?=$type??'text'?>" name="<?=$name?>" id="<?=$name?>" value="" class="form-control" placeholder="<?=$label?>" autocomplete="no_fill">
+    <?php endif; ?>    
+</div>

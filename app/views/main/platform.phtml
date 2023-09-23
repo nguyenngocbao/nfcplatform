@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="<?=config('app.view_static')?>/static/global/bundles/datatables/datatables.min.css">
+<link rel="stylesheet" href="<?=config('app.view_static')?>/static/global/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+<script src="<?=config('app.view_static')?>/static/global/bundles/datatables/datatables.min.js"></script>
+<script src="<?=config('app.view_static')?>/static/global/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=config('app.view_static')?>/static/pages/main/platform.js?v=<?=time()?>"></script>
+<div class="main-content">
+    <section class="section">
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Platform</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="datatable"
+                                       >
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            #
+                                        </th>
+                                        <th>Name</th>
+                                        <th>Url</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
