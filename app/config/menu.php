@@ -14,10 +14,14 @@ return [
         'Platform' => ['icon' => 'package', 'url' => '/main/platform']
     ],
     'MENU-PLATFORM' => [
-        'Configuration' => ['icon' => 'settings', 'url' => '']
+        'Device' => ['icon' => 'cpu', 'url' => ''],
+        'Store' => ['icon' => 'home', 'url' => ''],
+        'Template' => ['icon' => 'file', 'url' => '']
     ],
-    'EVENT-PLATFORM' => [
-        'Configuration' => ['icon' => 'settings', 'url' => '']
+    'CARDVISIT-PLATFORM' => [
+        'Device' => ['icon' => 'cpu', 'url' => ''],
+        'User' => ['icon' => 'settings', 'url' => ''],
+        'Template' => ['icon' => 'file', 'url' => '']
     ]
 
 
