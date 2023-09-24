@@ -4,19 +4,16 @@ namespace App\Controllers\main;
 
 use App\Controllers\CRUDController;
 
-class PlatformController extends CRUDController
+class NFCTypeController extends CRUDController
 {
-    const TABLE = 'platform';
+    const TABLE = 'nfc_type';
     const COLUMN = [
         'name' => self::STRING,
-        'description' => self::STRING,
-        'platform_url' => self::STRING,
         'status' => self::INT];
 
-    const VIEW = 'main/platform';
+    const VIEW = 'main/nfc_type';
     const COLUMN_TABLE = [
         ['get' => 'name'],
-        ['get' => 'platform_url'],
         ['get' => 'status']
     ];
     protected function table()
@@ -45,4 +42,5 @@ class PlatformController extends CRUDController
         return [];
 
     }
+
 }

@@ -4,10 +4,10 @@
 
 return [
     'MAIN' => [
-        'Nfc' => ['icon' => 'cpu','submenu' =>
+        'NFC Device' => ['icon' => 'cpu','submenu' =>
             [
-                ['name' => 'Configuration','url' => ''],
-                ['name' => 'Management','url' => '/main/nfc'],
+                ['name' => 'Device','url' => '/main/nfc'],
+                ['name' => 'Type','url' => '/main/nfc_type'],
             ],
 
         ],

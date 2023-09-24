@@ -126,10 +126,11 @@ function html_active_2($is_active) {
 }
 
 function html_edit($key, $id) {
-    return '<a class="btn btn-info btn-xs margin-sm edit" data-' . $key . '="' . $id . '" title="Cập nhật"><i class="fa fa-edit"></i></a>';
+    return '<a class="btn btn-primary edit" data-' . $key . '="' . $id . '" >Detail</i></a>';
 }
 
 function html_edit_link(string $href) {
+
     return '<a class="btn btn-info btn-xs margin-sm" href="' . $href . '" title="Cập nhật"><i class="fa fa-edit"></i></a>';
 }
 

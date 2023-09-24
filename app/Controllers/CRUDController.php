@@ -78,28 +78,27 @@ abstract class CRUDController
             $function   = $this->_function($v);
 
             $row = [
-                $start + ($index++),
-                $function
+                $start + ($index++)
             ];
 
-            $row = array_merge($row,$this->_addColumToRow($v));
+
+            $row = array_merge($row,$this->_addColumToRow($v),[$function]);
             array_push($data, $row);
         }
 
         return $data;
     }
     protected function _function($v){
-        $is_delete     = allow_acl('delete', static::class);
-        $is_update     = allow_acl('update', static::class) && allow_acl('get', static::class);
-        $edit       = $is_update ? html_edit('id', $v['id']) : '';
-        $delete     = $is_delete ? html_delete('id', $v['id'], 'name', $v['name']) : '';
-        return $edit . $delete;
+
+        $detail       =  html_edit('id', $v['id']);
+
+        return $detail;
     }
     protected function _addColumToRow($data){
         $row = [];
         foreach ($this->_columnTable() as $c ){
             if ($c['get'] == 'status'){
-                $content = getColValue($c['get'],$data)== 1? 'Bật': 'Tắt';
+                $content = getColValue($c['get'],$data) == 1 ? '<div class="badge badge-success">Active</div>': '<div class="badge badge-error">Inactive</div>';
             }else{
                 $content = getColValue($c['get'],$data);
             }
@@ -114,14 +113,11 @@ abstract class CRUDController
     public function updateAction(){
         $_d = $this->parseData();
 
-        $_d['updated_at'] = now();
-        $_d['updated_by'] = session('account.username');
+
 
         if ($id = post_int('id')) {
             $r = db()->update($this->table(), $_d, ['id' => $id]);
         } else {
-            $_d['created_at'] = now();
-            $_d['created_by'] = session('account.username');
 
             $r = db()->insert($this->table(), $_d);
 

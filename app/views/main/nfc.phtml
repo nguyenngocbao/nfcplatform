@@ -1,1 +1,109 @@
-<?php
+<link rel="stylesheet" href="<?= config('app.view_static') ?>/static/global/bundles/datatables/datatables.min.css">
+<link rel="stylesheet"
+      href="<?= config('app.view_static') ?>/static/global/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+<script src="<?= config('app.view_static') ?>/static/global/bundles/datatables/datatables.min.js"></script>
+<link rel="stylesheet" href="<?= config('app.view_static') ?>/static/pages/handle-form.js?v=<?= time() ?>">
+<script src="<?= config('app.view_static') ?>/static/global/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= config('app.view_static') ?>/static/pages/main/nfc.js?v=<?= time() ?>"></script>
+<div class="main-content">
+    <section class="section">
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>NFC Device</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <div style="display: flex; justify-content: flex-end; margin-bottom: 10px">
+                                    <div class="dt-buttons btn-group">
+                                        <button class="btn btn-primary" id="add"  style="width: 100px"
+                                        ><span>Add</span></button>
+                                    </div>
+                                </div>
+                                <table class="table table-striped"
+                                >
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 5%">
+                                            #
+                                        </th>
+                                        <th style="width: 30%">UUID</th>
+                                        <th>Platform</th>
+                                        <th style="width: 15%">Owner</th>
+                                        <th style="width: 15%">Type</th>
+                                        <th style="width: 15%">Status</th>
+                                        <th style="width: 15%">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="table-data">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <div class="modal fade" id="modalAdd"
+         >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModal">Platform</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-form">
+                        <input name="id" hidden>
+                        <div class="form-group">
+                            <label>UUID</label>
+                            <input type="text" name="uuid" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Platform</label>
+                            <select class="form-control" name="platform">
+                                <option value="0">Please select Platform</option>
+                                <?php foreach ($platforms as $v) : ?>
+                                    <option value="<?= $v['id'] ?>"><?=$v['name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>NFC Type</label>
+                            <select class="form-control" name="type">
+                                <option value="0">Please select NFC Type</option>
+                                <?php foreach ($nfcTypes as $v) : ?>
+                                    <option value="<?= $v['id'] ?>"><?=$v['name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Owner</label>
+                            <select class="form-control" name="owner">
+                                <option value="1">Admin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="status" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Active
+                                </label>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: flex-end">
+                            <button type="button" id="btn-add" class="btn btn-primary m-t-15 waves-effect">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

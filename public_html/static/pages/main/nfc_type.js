@@ -1,10 +1,8 @@
-const URL = '/main/platform/';
+const URL = '/main/nfc_type/';
 
 const STRUCTURE = {
     id: {type:'text'},
     name : {type:'text'},
-    description: {type:'text'},
-    platform_url: {type:'text'},
     status: {type:'checkbox',default: true}
 }
 jQuery(document).ready(function () {

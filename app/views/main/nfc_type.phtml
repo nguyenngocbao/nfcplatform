@@ -4,7 +4,7 @@
       href="<?= config('app.view_static') ?>/static/global/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
 <script src="<?= config('app.view_static') ?>/static/global/bundles/datatables/datatables.min.js"></script>
 <script src="<?= config('app.view_static') ?>/static/global/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-<script src="<?= config('app.view_static') ?>/static/pages/main/platform.js?v=<?= time() ?>"></script>
+<script src="<?= config('app.view_static') ?>/static/pages/main/nfc_type.js?v=<?= time() ?>"></script>
 <div class="main-content">
     <section class="section">
         <div class="section-body">
@@ -12,14 +12,14 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Platform</h4>
+                            <h4>NFC Device Type</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <div style="display: flex; justify-content: flex-end; margin-bottom: 10px">
                                     <div class="dt-buttons btn-group">
                                         <button class="btn btn-primary" id="add"  style="width: 100px"
-                                                ><span>Add</span></button>
+                                        ><span>Add</span></button>
                                     </div>
                                 </div>
                                 <table class="table table-striped"
@@ -30,7 +30,6 @@
                                             #
                                         </th>
                                         <th style="width: 30%">Name</th>
-                                        <th>Platform URL</th>
                                         <th style="width: 15%">Status</th>
                                         <th style="width: 15%">Action</th>
                                     </tr>
@@ -64,15 +63,6 @@
                             <label>Name</label>
                             <input type="text" name="name" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <input type="text" name="description" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Platform URL</label>
-                            <input type="text" name="platform_url" class="form-control">
-                        </div>
-
                         <div class="form-group">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="status" id="defaultCheck1">
