@@ -23,6 +23,7 @@ return [
     [GET, '/logout', [IndexController::class, 'logout']],
 
     [GET, '/nfcplatform/[*:uuid]', [PlatformForwardController::class, 'index']],
+    [GET, '/profile', [\App\Controllers\ProfileController::class, 'index']],
 
     [GET, '/main/platform', [PlatformController::class, 'index']],
     [POST, '/main/platform/delete', [PlatformController::class, 'delete']],

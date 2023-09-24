@@ -1,147 +1,344 @@
-<link href="<?=config('app.view_static')?>/static/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
-<script src="<?=config('app.view_static')?>/static/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
-<div class="page-content-wrapper">
-    <div class="page-content">
-        <h1 class="page-title font-dark bold uppercase"><?= $title ?></h1>
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Profile</title>
+    <link rel="stylesheet" type="text/css" href="<?=config('app.view_static')?>/profilestatic/styles/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?=config('app.view_static')?>/profilestatic/styles/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?=config('app.view_static')?>/profilestatic/fonts/css/fontawesome-all.min.css">
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?=config('app.view_static')?>/profilestatic/app/icons/icon-192x192.png">
+</head>
+<style>
+    .page-content {
+        height: 100vh;
+    }
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="portlet light bordered">
-                    <div class="portlet-body form filter">
-                        <form role="form" method="POST" onsubmit="return checkSubmit()" action="<?=url('profile/update')?>" enctype="multipart/form-data">
-                            <div class="form-body">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label">Tên đăng nhập</label>
-                                            <span><h4><b> <?= $username ?> </b></h4></span>
-                                        </div>
-                                    </div>                                     
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label">Chức danh</label>
-                                            <span><h4><b> <?= $account_title ?> </b></h4></span>
-                                        </div>
-                                    </div>  
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label">Đơn vị chuyển khai</label>
-                                            <span><h4><b> <?= $implementation_unit_list ?> </b></h4></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label">Tỉnh thành quản lý</label>
-                                            <span><h4><b> <?= $city_list ?> </b></h4></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label">Nguồn tham khảo</label>
-                                            <span><h4><b> <?= $source_list ?> </b></h4></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label class="control-label">Quyền</label>
-                                            <span><h4><b> <?= $allow_role ?> </b></h4></span>
-                                        </div>
-                                    </div>
-                                </div>    
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <?=block('input-text', ['label'=>'Họ và tên', 'name'=>'fullname', 'required'=>1])?>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <?=block('input-text', ['label'=>'Email', 'name'=>'email', 'type'=>'email'])?>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <?=block('input-text', ['label'=>'Số điện thoại', 'name'=>'phone'])?>
-                                    </div>
-                                </div>                  
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <?=block('input-text', ['label'=>'Mật khẩu cũ', 'name'=>'pass_old', 'type'=>'password'])?>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <?=block('input-text', ['label'=>'Mật khẩu mới', 'name'=>'pass', 'type'=>'password'])?>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <?=block('input-text', ['label'=>'Xác nhận mật khẩu mới', 'name'=>'repass', 'type'=>'password'])?>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                <?php
-                                                $image = $account['image'] ? config('app.image.view_upload').$account['image'] : 'https://via.placeholder.com/200x150';
-                                                ?>
-                                                <img src="<?=$image?>" alt="" /> </div>
-                                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
-                                            <div>
-                                                <span class="btn default btn-file">
-                                                    <span class="fileinput-new"> Chọn hình </span>
-                                                    <span class="fileinput-exists"> Đổi hình </span>
-                                                    <input type="file" name="image" accept="image/*"> </span>
-                                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Xóa hình </a>
-                                            </div>
-                                        </div>
-                                    </div>                                    
-                                </div>
-                                <?php if ($mess ?? 0) : ?>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div id="div_msg" align="center" class="alert alert-<?= $cls ?>">
-                                                <span><?= $mess ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                            <div class="form-actions right">
-                                <button type="submit"  class="btn blue"><i class="fa fa-edit"></i> <span>Cập nhật thông tin</span></button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    .add-store {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .add-store article {
+        font-size: 60px;
+    }
+
+    .title {
+        margin-bottom: 15px;
+    }
+
+    .flex-center {
+        display: flex;
+        align-items: center;
+        overflow-x: auto;
+    }
+    .menu-area{
+        padding-bottom: 40px;
+    }
+    .menu-area a {
+        white-space: nowrap;
+        min-width: 100px;
+        text-align: center;
+    }
+
+    .flex-center article {
+        font-size: 18px;
+        color: #DA4453;
+    }
+
+    .flex-center .menu-box {
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-bottom: 8px;
+        color: #DA4453;
+    }
+
+    .flex-center .fas {
+        margin: 0px;
+
+    }
+
+    .btn-add {
+        border-radius: 50%;
+        padding: 6px 8px;
+        margin-bottom: 8px;
+    }
+
+    .add-category {
+        text-align: center;
+        margin-bottom: 5px;
+        margin-top: 16px;
+    }
+
+    .add-category-btn {
+        padding: 2px 12px;
+        margin-bottom: 5px;
+    }
+
+    .dropzone {
+        border-style: dashed;
+        height: 150px;
+    }
+
+    .ab-tool {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        border-radius: 5%;
+        height: 35px;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        box-shadow: 0 0.0625rem 0.375rem rgba(0, 0, 0, 0.2);;
+        border-radius: 10px;
+        padding: 4px 10px;
+        z-index: 10;
+        gap: 8px;
+    }
+
+    .ab-tool article {
+        color: #DA4453;
+        margin-right: 4px;
+        margin-left: 4px;
+    }
+
+    .am-tool {
+        position: absolute;
+        bottom: -40px;
+        left: -10px;
+        border-radius: 5%;
+        height: 35px;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        box-shadow: 0 0.0625rem 0.375rem rgba(0, 0, 0, 0.2);;
+        border-radius: 10px;
+        padding: 4px 10px;
+        z-index: 10;
+        gap: 5px;
+    }
+
+    .menu-box:hover .am-tool {
+        visibility: visible;
+    }
+
+    .am-tool article {
+        color: #DA4453;
+        margin-right: 4px;
+        margin-left: 4px;
+    }
+
+    .cat-name{
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        color: #ffffff;
+        font-size: 32px;
+        font-family: "Rubik,sans-serif";
+        font-weight: 1.4;
+        text-transform: uppercase;
+
+    }
+    .img-fluid{
+        height: 140px;
+        border-radius: 15px;
+        filter: brightness(0.87);
+        object-fit: cover;
+
+    }
+
+    .view-tool article,a,a:hover{
+        color: #6c6c6c;
+    }
+    .tool a{
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+    .store-header{
+        position: relative;
+        height: 250px;
+        margin-bottom: -20px;
+    }
+    .background-image{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: 50%;
+    }
+    .logo-image{
+        position: absolute;
+        bottom: -50px;
+        left: 0px;
+        z-index: 100;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+
+    }
+    .logo-image img{
+        border-radius: 50%;
+        height: 150px;
+        width: 150px;
+        object-fit: cover;
+    }
+    .title{
+        margin-top: 10px;
+    }
+    .img-cover{
+        object-fit: cover;
+    }
+    .card-style-no-mr-lr {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .flex{
+        display: flex;
+    }
+    .mb-10{
+        margin-bottom: 10px;
+    }
+
+</style>
+
+<body class="theme-light" data-highlight="highlight-red" data-gradient="body-default">
+
+<div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
+
+<div id="page">
+
+    <div class="page-content">
+        <div class="store-header" >
+            <div class="background-image"  style="background-image: url(https://scontent.fsgn2-8.fna.fbcdn.net/v/t1.6435-9/120231689_1580536482118814_6242719194123082466_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=19026a&_nc_ohc=pa9VgyE3GrkAX-rOikT&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfBPVN2lmzaOL6sUOJ70cT8z2hgliUl68vd5kVn1KPXseA&oe=6536A7EA)">
+            </div>
+            <div class="logo-image">
+                <img  src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.6435-9/80862133_1345335312305600_5109354496174063616_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=174925&_nc_ohc=ZITq27guPV0AX9Oo2QF&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfAvIn0lk9EayoSKrvHqeOKyQ0AgzTEQD8Gnd-Pel-vbTw&oe=65368B13">
             </div>
         </div>
 
-    </div>
-</div>    
-<script>
-    function checkSubmit() {
-        if ($('#fullname').val() === '') {
-            swal('Chưa nhập họ tên', {
-                icon: 'warning'
-            });
-            $('#fullname').focus();
-            return false;
-        }
-//        if ($('#pass_old').val() === '') {
-//            alert('Chưa nhập mật khẩu củ');
-//            $('#pass_old').focus();
-//            return false;
-//        }
-//        if ($('#pass').val() === '') {
-//            alert('Chưa nhập mật khẩu mới');
-//            $('#pass').focus();
-//            return false;
-//        }
-//        if ($('#repass').val() === '') {
-//            alert('Chưa nhập xác nhận mật khẩu mới');
-//            $('#repass').focus();
-//            return false;
-//        }
-        if ($('#pass').val() !== $('#repass').val()) {
-            swal('Mật khẩu mới và xác nhận mật khẩu mới không khớp', {
-                icon: 'warning'
-            });
-            $('#pass').focus();
-            return false;
-        }
+        <div class="card card-style card-style-no-mr-lr" style="min-height: 600px;">
+            <div class="content mb-3">
+                <div class="title">
+                    <div class="flex font-36" style="margin-bottom: 15px;">
+                        <h3 class="text-uppercase">Nguyễn Ngọc Bảo</h3>
+                        <div class="space"></div>
+                    </div>
 
-        return true;
-    }
-</script>
+                    <div class="flex align-items-center font-18 gap-2 mb-10">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <span>Software Development Engineer at VNG Corporation</span>
+                    </div>
+
+                    <div class="flex align-items-center font-18 gap-2 mb-10">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>0342340787</span>
+                    </div>
+                    <div class="flex gap-2 font-18 mb-10">
+                        <article id="map-marker-alt">
+                            <div class="relative"><span class="fa-fw select-all fas"></span></div>
+                        </article>
+                        <span>57 Đường số 8, Khu phố 2, Hiệp BÌnh Chánh, Thủ Đức, TPHCM</span>
+                    </div>
+                    <div class="flex align-items-center font-18 gap-2 mb-10">
+                        <i class="fa-brands fa-facebook"></i>
+                        <span>Ngọc Bảo</span>
+                    </div>
+                    <div class="flex align-items-center font-18 gap-2 mb-10">
+                        <i class="fa-brands fa-twitter"></i>
+                        <span>Steve</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="mb-0 mt-n1">
+                        <div class="gallery-views gallery-view-2">
+                            <a data-gallery="gallery-1" href="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-6/340944326_271863935181211_7989962867250682962_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=1b51e3&_nc_ohc=hZx7RZe6Ke4AX9cVOKb&_nc_ht=scontent.fsgn2-5.fna&oh=00_AfC69ubNt-zaR4LdVtWE1M76Pr4KMqXQb7um6Zimc6_2Nw&oe=6514B6AD" title="Vynil and Typerwritter">
+                                <img src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-6/340944326_271863935181211_7989962867250682962_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=1b51e3&_nc_ohc=hZx7RZe6Ke4AX9cVOKb&_nc_ht=scontent.fsgn2-5.fna&oh=00_AfC69ubNt-zaR4LdVtWE1M76Pr4KMqXQb7um6Zimc6_2Nw&oe=6514B6AD" data-src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-6/340944326_271863935181211_7989962867250682962_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=1b51e3&_nc_ohc=hZx7RZe6Ke4AX9cVOKb&_nc_ht=scontent.fsgn2-5.fna&oh=00_AfC69ubNt-zaR4LdVtWE1M76Pr4KMqXQb7um6Zimc6_2Nw&oe=6514B6AD" class="rounded-m preload-img shadow-xl img-fluid entered loaded" alt="img" data-ll-status="loaded">
+                                <div class="caption">
+                                    <h4 class="bottom-0 color-theme">Messy Desk?</h4>
+                                    <p>Some may consider this to be a very messy desk.</p>
+                                    <div class="divider bottom-0"></div>
+                                </div>
+                            </a>
+                            <a data-gallery="gallery-1" href="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/358117369_2340799846092470_5286552189247590721_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=668d3b&_nc_ohc=pyC4vGL1TU0AX8MtNnW&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfAK7HBDqHXiwuOfOnUAxhJeKaWXt_dw4OdeSqXw_oyhIw&oe=65133B65" title="Fruit Cookie Pie">
+                                <img src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/358117369_2340799846092470_5286552189247590721_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=668d3b&_nc_ohc=pyC4vGL1TU0AX8MtNnW&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfAK7HBDqHXiwuOfOnUAxhJeKaWXt_dw4OdeSqXw_oyhIw&oe=65133B65" data-src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/358117369_2340799846092470_5286552189247590721_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=668d3b&_nc_ohc=pyC4vGL1TU0AX8MtNnW&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfAK7HBDqHXiwuOfOnUAxhJeKaWXt_dw4OdeSqXw_oyhIw&oe=65133B65" class="rounded-m preload-img shadow-xl img-fluid entered loaded" alt="img" data-ll-status="loaded">
+                                <div class="caption">
+                                    <h4 class="bottom-0 color-theme">Designers Desk</h4>
+                                    <p>With all the gadgets you'd ever wish for.</p>
+                                    <div class="divider bottom-0"></div>
+                                </div>
+                            </a>
+                            <a data-gallery="gallery-1" href="https://scontent.fsgn2-3.fna.fbcdn.net/v/t39.30808-6/278450810_2004166123089179_2421999569427426631_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=668d3b&_nc_ohc=nXpGVrwp6f8AX_AyJ8m&_nc_ht=scontent.fsgn2-3.fna&oh=00_AfCqUWSBWWOvyZLCoqIV6wqKDdgi9iFHNQ27gGhD8BV8gQ&oe=6514853B" title="Plain Cookies and Flour">
+                                <img src="https://scontent.fsgn2-3.fna.fbcdn.net/v/t39.30808-6/278450810_2004166123089179_2421999569427426631_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=668d3b&_nc_ohc=nXpGVrwp6f8AX_AyJ8m&_nc_ht=scontent.fsgn2-3.fna&oh=00_AfCqUWSBWWOvyZLCoqIV6wqKDdgi9iFHNQ27gGhD8BV8gQ&oe=6514853B" data-src="https://scontent.fsgn2-3.fna.fbcdn.net/v/t39.30808-6/278450810_2004166123089179_2421999569427426631_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=668d3b&_nc_ohc=nXpGVrwp6f8AX_AyJ8m&_nc_ht=scontent.fsgn2-3.fna&oh=00_AfCqUWSBWWOvyZLCoqIV6wqKDdgi9iFHNQ27gGhD8BV8gQ&oe=6514853B" class="rounded-m preload-img shadow-xl img-fluid entered loaded" alt="img" data-ll-status="loaded">
+                                <div class="caption">
+                                    <h4 class="bottom-0 color-theme">Apple Watch</h4>
+                                    <p>The perfect and small notification device.</p>
+                                    <div class="divider bottom-0"></div>
+                                </div>
+                            </a>
+                            <a data-gallery="gallery-1" href="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/289337040_2052932741545850_3597524310429540990_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=668d3b&_nc_ohc=QtBKiRzVxK4AX_X8rUK&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfDd-C6_40K1efZn-Bw2UNuhssqaEYZc9OgXkwL34XEnAg&oe=65143B6C" title="Pots and Stuff">
+                                <img src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/289337040_2052932741545850_3597524310429540990_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=668d3b&_nc_ohc=QtBKiRzVxK4AX_X8rUK&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfDd-C6_40K1efZn-Bw2UNuhssqaEYZc9OgXkwL34XEnAg&oe=65143B6C" data-src="https://scontent.fsgn2-7.fna.fbcdn.net/v/t39.30808-6/289337040_2052932741545850_3597524310429540990_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=668d3b&_nc_ohc=QtBKiRzVxK4AX_X8rUK&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfDd-C6_40K1efZn-Bw2UNuhssqaEYZc9OgXkwL34XEnAg&oe=65143B6C" class="rounded-m preload-img shadow-xl img-fluid entered loaded" alt="img" data-ll-status="loaded">
+                                <div class="caption">
+                                    <h4 class="bottom-0 color-theme">City Landscape</h4>
+                                    <p>It's absolutely gorgeous, we'd love to see it live.</p>
+                                    <div class="divider bottom-0"></div>
+                                </div>
+                            </a>
+                            <a data-gallery="gallery-1" href="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/308604055_2127593337413123_7446350451977162323_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=668d3b&_nc_ohc=NzFHH3SYMKMAX-ismWZ&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfDpkubvI6xa7PzhyuJ4fnto27ao4DZ_-GV1JjG4aPAGTA&oe=651476AD" title="Delicious Strawberries">
+                                <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/308604055_2127593337413123_7446350451977162323_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=668d3b&_nc_ohc=NzFHH3SYMKMAX-ismWZ&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfDpkubvI6xa7PzhyuJ4fnto27ao4DZ_-GV1JjG4aPAGTA&oe=651476AD" data-src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/308604055_2127593337413123_7446350451977162323_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=668d3b&_nc_ohc=NzFHH3SYMKMAX-ismWZ&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfDpkubvI6xa7PzhyuJ4fnto27ao4DZ_-GV1JjG4aPAGTA&oe=651476AD" class="rounded-m preload-img shadow-xl img-fluid entered loaded" alt="img" data-ll-status="loaded">
+                                <div class="caption">
+                                    <h4 class="bottom-0 color-theme">Typography and iPhone 5</h4>
+                                    <p>A beautifully captured snap with great contrast.</p>
+                                    <div class="divider bottom-0"></div>
+                                </div>
+                            </a>
+                            <a data-gallery="gallery-1" href="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.6435-9/80862133_1345335312305600_5109354496174063616_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=174925&_nc_ohc=ZITq27guPV0AX9Oo2QF&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfAvIn0lk9EayoSKrvHqeOKyQ0AgzTEQD8Gnd-Pel-vbTw&oe=65368B13" title="A Beautiful Camera">
+                                <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.6435-9/80862133_1345335312305600_5109354496174063616_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=174925&_nc_ohc=ZITq27guPV0AX9Oo2QF&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfAvIn0lk9EayoSKrvHqeOKyQ0AgzTEQD8Gnd-Pel-vbTw&oe=65368B13" data-src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.6435-9/80862133_1345335312305600_5109354496174063616_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=174925&_nc_ohc=ZITq27guPV0AX9Oo2QF&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfAvIn0lk9EayoSKrvHqeOKyQ0AgzTEQD8Gnd-Pel-vbTw&oe=65368B13" class="rounded-m preload-img shadow-xl img-fluid entered loaded" alt="img" data-ll-status="loaded">
+                                <div class="caption">
+                                    <h4 class="bottom-0 color-theme">Feather and Paper?</h4>
+                                    <p>Going back to days when things were simplere.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <!-- <div class="footer card card-style">
+            <div class="text-center mb-3">
+                <a href="#" class="icon icon-xs rounded-sm shadow-l me-1 bg-facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="icon icon-xs rounded-sm shadow-l me-1 bg-twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="icon icon-xs rounded-sm shadow-l me-1 bg-phone"><i class="fa fa-phone"></i></a>
+            </div>
+            <p class="footer-copyright">Copyright &copy; HMG <span id="copyright-year">2023</span></p>
+            <div class="clear"></div>
+        </div>     -->
+
+    </div>
+    <!-- End of Page Content-->
+</div>
+
+<script type="text/javascript" src="<?=config('app.view_static')?>/profilestatic/scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=config('app.view_static')?>/profilestatic/scripts/jquery.js"></script>
+<script type="text/javascript" src="<?=config('app.view_static')?>/profilestatic/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="<?=config('app.view_static')?>/profilestatic/scripts/custom.js"></script>
+<script type="text/javascript" src="<?=config('app.view_static')?>/profilestatic/scripts/index.js?v=123"></script>
+</body>
+
+
+
+

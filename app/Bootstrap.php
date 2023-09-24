@@ -9,6 +9,7 @@ namespace App;
 use Exception;
 use App\Controllers\IndexController;
 use App\Controllers\ActionController;
+use App\Controllers\ProfileController;
 use App\Controllers\PlatformForwardController;
 
 class Bootstrap {
@@ -79,7 +80,7 @@ class Bootstrap {
 
 
     public static function noAuthencation($controller){
-        $classNoAuthen = [IndexController::class,PlatformForwardController::class];
+        $classNoAuthen = [IndexController::class,PlatformForwardController::class,ProfileController::class];
         return in_array(get_class($controller),$classNoAuthen);
 
     }

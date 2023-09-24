@@ -463,3 +463,25 @@ function send_email($email, $subject, $content) {
     }
     return 0;
 }
+
+function render_page(string $name, $data = null) {
+    $_data = is_callable($data) ? $data() : $data;
+    $data = (array) $_data;
+    $data['content'] = render_template($name, $data);
+
+        echo render_template('_profile', $data);
+
+    exit();
+}
+
+function render_template(string $template, array $data = []) {
+    extract((array) $data, EXTR_SKIP);
+    $__filepath__ = config('app.path_view') . $template . '.phtml';
+    if (!is_file($__filepath__)) {
+        die("View file does not exist：{$__filepath__}");
+    }
+    $callback ? ob_start($callback) : ob_start();
+    include $__filepath__;
+
+    return ob_get_clean();
+}
