@@ -33,5 +33,8 @@ return [
     
     'profile_time_log' => 26,                                               //
     'path_profile_db'  => realpath(__DIR__ . '/../../') . '/logs/db.pro',
+    'url' => [
+        'gateway' => 'http://localhost:8005'
+    ]
     
 ];

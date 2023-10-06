@@ -2,7 +2,6 @@ const URL = '/main/nfc/';
 
 const STRUCTURE = {
     id: {type:'text'},
-    uuid : {type:'text'},
     platform: {type:'selected'},
     type: {type:'selected'},
     owner: {type:'selected'},
@@ -11,6 +10,17 @@ const STRUCTURE = {
 jQuery(document).ready(function () {
     init();
     //EVENT
+    $(document).on('click', '.view-url', function () {
+        $('#view-url-text').val($(this).data('url'));
+        $('#modalViewUrl').modal('show');
+    });
+
+    $('#copy').on('click', function (e) {
+        let content = $('#view-url-text').val();
+        console.log(content);
+        navigator.clipboard.writeText(content);
+    });
+
     $('#add').on('click', function (e) {
         let form = $('#add-form');
         clearForm(STRUCTURE,form);

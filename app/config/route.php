@@ -12,6 +12,9 @@ use App\Controllers\main\NFCController;
 use App\Controllers\main\NFCTypeController;
 use App\Controllers\main\PlatformController;
 
+use App\Controllers\menu\TemplateController;
+use App\Controllers\menu\StoreController;
+
 
 define('GET', 'GET');
 define('POST', 'POST');
@@ -42,6 +45,20 @@ return [
     [POST, '/main/nfc_type/update', [NFCTypeController::class, 'update']],
     [POST, '/main/nfc_type/get', [NFCTypeController::class, 'get']],
     [GET, '/main/nfc_type/list', [NFCTypeController::class, 'list']],
+
+    [GET, '/menu/store', [StoreController::class, 'index']],
+    [POST, '/menu/store/delete', [StoreController::class, 'delete']],
+    [POST, '/menu/store/update', [StoreController::class, 'update']],
+    [POST, '/menu/store/get', [StoreController::class, 'get']],
+    [GET, '/menu/store/list', [StoreController::class, 'list']],
+    [POST, '/menu/store/get-district', [StoreController::class, 'dictrict']],
+    [POST, '/menu/store/get-ward', [StoreController::class, 'ward']],
+
+    [GET, '/menu/template', [TemplateController::class, 'index']],
+    [POST, '/menu/template/delete', [TemplateController::class, 'delete']],
+    [POST, '/menu/template/update', [TemplateController::class, 'update']],
+    [POST, '/menu/template/get', [TemplateController::class, 'get']],
+    [GET, '/menu/template/list', [TemplateController::class, 'list']],
 
 
 

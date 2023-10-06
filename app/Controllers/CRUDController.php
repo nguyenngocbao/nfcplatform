@@ -113,8 +113,6 @@ abstract class CRUDController
     public function updateAction(){
         $_d = $this->parseData();
 
-
-
         if ($id = post_int('id')) {
             $r = db()->update($this->table(), $_d, ['id' => $id]);
         } else {
@@ -156,7 +154,7 @@ abstract class CRUDController
 
     public function deleteAction()
     {
-        $id = post_int('id');
+        $id = post('id');
         if ($id) {
             $r = db()->delete($this->table(), ['id' => $id]);
             if ($r->rowCount()) {
@@ -168,7 +166,7 @@ abstract class CRUDController
     //GET
     public function getAction()
     {
-        $id = post_int('id');
+        $id = post('id');
         if ($id) {
             $data = db_get($this->table(),'*', ['id' => $id]);
             $data && echo_json_success($data);

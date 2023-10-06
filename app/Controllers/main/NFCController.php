@@ -9,7 +9,6 @@ class NFCController extends CRUDController
 
     const TABLE = 'nfc';
     const COLUMN = [
-        'uuid' => self::STRING,
         'platform' => self::STRING,
         'owner' => self::STRING,
         'type' => self::INT,
@@ -17,7 +16,8 @@ class NFCController extends CRUDController
 
     const VIEW = 'main/nfc';
     const COLUMN_TABLE = [
-        ['get' => 'uuid'],
+        ['get' => 'id'],
+        ['get' => 'serial'],
         ['get' => 'platform_name'],
         ['get' => 'owner'],
         ['get' => 'nfc_type_name'],
@@ -57,7 +57,7 @@ class NFCController extends CRUDController
         $column = array_map(function ($key){
             return $this->table().'.'.$key;
         },array_keys($this->column()));
-        $column = array_merge([$this->table().'.id',
+        $column = array_merge([$this->table().'.id',$this->table().'.serial',
             'platform.name(platform_name)','nfc_type.name(nfc_type_name)'],
             $column );
         $where = $this->_where();
@@ -66,7 +66,7 @@ class NFCController extends CRUDController
 
     protected function _addColumToRow($data){
         $row = [];
-        foreach ($this->_columnTable() as $c ){
+        foreach ($this->_columnTable() as $index => $c ){
             switch ($c['get']){
                 case 'status':
                     $content = getColValue($c['get'],$data) == 1 ? '<div class="badge badge-success">Active</div>': '<div class="badge badge-error">Inactive</div>';
@@ -81,6 +81,17 @@ class NFCController extends CRUDController
             array_push($row, $content);
         }
         return $row;
+    }
+
+    protected function _function($v){
+
+        $detail       =  html_edit('id', $v['id']);
+
+        $url = config('app.url.gateway').'/'.$v['id'];
+
+        $view_url =  '<a class="btn btn-green view-url mr-2"  data-url'. '="' . $url . '" >View URL</i></a>';
+
+        return $detail.$view_url;
     }
 
 

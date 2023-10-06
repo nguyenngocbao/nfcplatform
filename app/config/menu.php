@@ -8,20 +8,16 @@ return [
             [
                 ['name' => 'Device','url' => '/main/nfc'],
                 ['name' => 'Type','url' => '/main/nfc_type'],
+                ['name' => 'Chip','url' => '/main/nfc/chip'],
             ],
 
         ],
         'Platform' => ['icon' => 'package', 'url' => '/main/platform']
     ],
     'MENU-PLATFORM' => [
-        'Device' => ['icon' => 'cpu', 'url' => ''],
-        'Store' => ['icon' => 'home', 'url' => ''],
-        'Template' => ['icon' => 'file', 'url' => '']
-    ],
-    'CARDVISIT-PLATFORM' => [
-        'Device' => ['icon' => 'cpu', 'url' => ''],
-        'User' => ['icon' => 'settings', 'url' => ''],
-        'Template' => ['icon' => 'file', 'url' => '']
+        'Device' => ['icon' => 'cpu', 'url' => '/menu/device'],
+        'Store' => ['icon' => 'home', 'url' => '/menu/store' ],
+        'Template' => ['icon' => 'file', 'url' => '/menu/template']
     ]
 
 

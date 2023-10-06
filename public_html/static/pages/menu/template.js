@@ -1,10 +1,8 @@
-const URL = '/main/platform/';
+const URL = '/menu/template/';
 
 const STRUCTURE = {
     id: {type:'text'},
     name : {type:'text'},
-    description: {type:'text'},
-    platform_url: {type:'text'},
     status: {type:'checkbox',default: true}
 }
 jQuery(document).ready(function () {
@@ -52,11 +50,9 @@ jQuery(document).ready(function () {
             dataType: 'json',
             data    : formData,
             success : function (response) {
-                console.log(response);
                 if (response.err === 1) {
 
                 } else {
-                    console.log(response);
 
                     //clearForm(STRUCTURE,form);
                     $('#modalAdd').modal('show');
@@ -103,4 +99,3 @@ function getList(){
     });
 
 }
-
