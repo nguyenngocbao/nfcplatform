@@ -13,6 +13,7 @@ class StoreController extends CRUDController
         'address' => self::STRING,
         'ward_id' => self::STRING,
         'district_id' => self::STRING,
+        'template_id' => self::STRING,
         'city_id' => self::STRING,
         'store_type' => self::STRING,
         'wifi_pass' => self::STRING,
@@ -52,7 +53,8 @@ class StoreController extends CRUDController
     {
         $city = $this->loadCity();
         $store_type_list = db_select('store_type',"*");
-        return compact("city","store_type_list");
+        $template_list = db_select('template',"*");
+        return compact("city","store_type_list",'template_list');
 
     }
 
@@ -95,10 +97,11 @@ class StoreController extends CRUDController
 
     protected function _function($v){
 
-        $detail       =  html_edit('id', $v['id']);
-        $menu = '<a class="btn btn-info menu mr-2 "  data-' . id . '="' . $v['id'] . '" >Menu</i></a>';
+        //$detail       =  html_edit('id', $v['id']);
+        $template = '<button class="btn btn-primary template mr-2 "  data-' . id . '="' . $v['id'] . '" >Template</i></button>';
+        $menu = '<button class="btn btn-info menu mr-2 "  data-' . id . '="' . $v['id'] . '" >Menu</i></button>';
 
-        return $detail.$menu;
+        return $template.$menu;
     }
 
     public function dictrictAction(){
@@ -129,5 +132,17 @@ class StoreController extends CRUDController
     private function loadWardByDistrict($district_id){
         return db_select('ward',"*",['district_id' => $district_id]);
     }
+
+    //UPDATE TEMPLATE
+    public function updateTemplateAction(){
+        //
+        if ($id = post_int('id') && $template_id = post_int('template_id')){
+            $r = db()->update($this->table(), ['template_id' => $template_id], ['id' => $id]);
+            echo_json(post());
+        }
+        echo_json_error();
+
+    }
+
 
 }

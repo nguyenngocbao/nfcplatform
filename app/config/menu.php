@@ -4,14 +4,15 @@
 
 return [
     'MAIN' => [
-        'NFC Device' => ['icon' => 'cpu','submenu' =>
-            [
-                ['name' => 'Device','url' => '/main/nfc'],
-                ['name' => 'Type','url' => '/main/nfc_type'],
-                ['name' => 'Chip','url' => '/main/nfc/chip'],
-            ],
-
-        ],
+//        'NFC Device' => ['icon' => 'cpu','submenu' =>
+//            [
+//                ['name' => 'Device','url' => '/main/nfc'],
+//                ['name' => 'Type','url' => '/main/nfc_type'],
+//                ['name' => 'Chip','url' => '/main/nfc/chip'],
+//            ],
+//
+//        ],
+        'NFC Device' => ['icon' => 'cpu', 'url' => '/main/nfc'],
         'Platform' => ['icon' => 'package', 'url' => '/main/platform']
     ],
     'MENU-PLATFORM' => [

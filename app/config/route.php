@@ -14,6 +14,7 @@ use App\Controllers\main\PlatformController;
 
 use App\Controllers\menu\TemplateController;
 use App\Controllers\menu\StoreController;
+use App\Controllers\menu\DeviceController;
 
 
 define('GET', 'GET');
@@ -49,10 +50,17 @@ return [
     [GET, '/menu/store', [StoreController::class, 'index']],
     [POST, '/menu/store/delete', [StoreController::class, 'delete']],
     [POST, '/menu/store/update', [StoreController::class, 'update']],
+    [POST, '/menu/store/update-template', [StoreController::class, 'updateTemplate']],
     [POST, '/menu/store/get', [StoreController::class, 'get']],
     [GET, '/menu/store/list', [StoreController::class, 'list']],
     [POST, '/menu/store/get-district', [StoreController::class, 'dictrict']],
     [POST, '/menu/store/get-ward', [StoreController::class, 'ward']],
+
+    [GET, '/menu/device', [DeviceController::class, 'index']],
+    [POST, '/menu/device/delete', [DeviceController::class, 'delete']],
+    [POST, '/menu/device/update', [DeviceController::class, 'update']],
+    [POST, '/menu/device/get', [DeviceController::class, 'get']],
+    [GET, '/menu/device/list', [DeviceController::class, 'list']],
 
     [GET, '/menu/template', [TemplateController::class, 'index']],
     [POST, '/menu/template/delete', [TemplateController::class, 'delete']],

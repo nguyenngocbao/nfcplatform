@@ -18,7 +18,7 @@
                             <div class="table-responsive">
                                 <div style="display: flex; justify-content: flex-end; margin-bottom: 10px">
                                     <div class="dt-buttons btn-group">
-                                        <button class="btn btn-primary" id="add"  style="width: 100px"
+                                        <button class="btn btn-primary" id="add" style="width: 100px"
                                         ><span>Add</span></button>
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@
 
     </section>
     <div class="modal fade" id="modalAdd"
-         >
+    >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -68,7 +68,7 @@
                             <select class="form-control" name="platform">
                                 <option value="0">Please select Platform</option>
                                 <?php foreach ($platforms as $v) : ?>
-                                    <option value="<?= $v['id'] ?>"><?=$v['name'] ?></option>
+                                    <option value="<?= $v['id'] ?>"><?= $v['name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -77,7 +77,7 @@
                             <select class="form-control" name="type">
                                 <option value="0">Please select NFC Type</option>
                                 <?php foreach ($nfcTypes as $v) : ?>
-                                    <option value="<?= $v['id'] ?>"><?=$v['name'] ?></option>
+                                    <option value="<?= $v['id'] ?>"><?= $v['name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -96,15 +96,15 @@
                             </div>
                         </div>
                         <div style="display: flex; justify-content: flex-end">
-                            <button type="button" id="btn-add" class="btn btn-primary m-t-15 waves-effect">Submit</button>
+                            <button type="button" id="btn-add" class="btn btn-primary m-t-15 waves-effect">Submit
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalViewUrl"
-    >
+    <div class="modal fade" id="modalViewUrl">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -122,7 +122,7 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group">
-                                <a id="copy" class="btn btn-primary copy mr-2" >Copy</a>
+                                <button id="copy" class="btn btn-primary copy mr-2">Copy</button>
                             </div>
                         </div>
                     </div>

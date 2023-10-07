@@ -13,6 +13,13 @@ const STRUCTURE = {
     email: {type:'text'},
     status: {type:'checkbox',default: true}
 };
+
+const TEMPLATE = {
+    id: {type:'text'},
+    template_id: {type:'text'},
+};
+
+
 jQuery(document).ready(function () {
     init();
     //EVENT
@@ -21,6 +28,33 @@ jQuery(document).ready(function () {
         $('#modalAdd').modal('show');
         let form = $('#add-form');
         clearForm(STRUCTURE,form);
+    });
+
+    $('#btn-template').on('click', function (e) {
+        let form = $('#template-form');
+        let data = getDataForm(TEMPLATE,form);
+
+
+        $.ajax({
+            method: 'POST',
+            url:  URL + 'update-template',
+            dataType: 'json',
+            data: data,
+            success: function (response) {
+                console.log(response)
+                if (response.err === 1) {
+
+                } else {
+                    getList();
+                }
+                $('#modalTemplate').modal('hide');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+
     });
 
     $('#btn-add').on('click', function (e) {
@@ -68,6 +102,35 @@ jQuery(document).ready(function () {
                     let form = $('#add-form');
                     var data = response.data;
                     updateForm(STRUCTURE,form,data);
+
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+
+    $(document).on('click', '.template', function () {
+        var formData = {
+            id: $(this).data('id')
+        };
+        $.ajax({
+            method  : 'POST',
+            url     :  URL + "get",
+            dataType: 'json',
+            data    : formData,
+            success : function (response) {
+                if (response.err === 1) {
+
+                } else {
+                    console.log(response)
+
+                    //clearForm(STRUCTURE,form);
+                    $('#modalTemplate').modal('show');
+                    let form = $('#template-form');
+                    var data = response.data;
+                    updateForm(TEMPLATE,form,data);
 
                 }
             },

@@ -126,7 +126,7 @@ function html_active_2($is_active) {
 }
 
 function html_edit($key, $id) {
-    return '<a class="btn btn-primary edit mr-2"  data-' . $key . '="' . $id . '" >Edit</i></a>';
+    return '<button class="btn btn-primary edit mr-2"  data-' . $key . '="' . $id . '" >Edit</i></button>';
 }
 
 function html_edit_link(string $href) {
