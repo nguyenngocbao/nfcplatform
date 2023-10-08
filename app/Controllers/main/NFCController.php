@@ -57,7 +57,7 @@ class NFCController extends CRUDController
         $column = array_map(function ($key){
             return $this->table().'.'.$key;
         },array_keys($this->column()));
-        $column = array_merge([$this->table().'.id',$this->table().'.serial',
+        $column = array_merge([$this->table().'.id',$this->table().'.count',
             'platform.name(platform_name)','nfc_type.name(nfc_type_name)'],
             $column );
         $where = $this->_where();
@@ -73,6 +73,9 @@ class NFCController extends CRUDController
                     break;
                 case 'owner':
                     $content = 'Admin';
+                    break;
+                case 'serial':
+                    $content = str_pad($data['count'], 6, '0', STR_PAD_LEFT);
                     break;
                 default:
                     $content = getColValue($c['get'],$data);
