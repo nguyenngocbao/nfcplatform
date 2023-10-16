@@ -97,5 +97,9 @@ class NFCController extends CRUDController
         return $detail.$view_url;
     }
 
+    protected function _where(){
+        return ["ORDER" => ["nfc.count" => "ASC"] ];
+    }
+
 
 }

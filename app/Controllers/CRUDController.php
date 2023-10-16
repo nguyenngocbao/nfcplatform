@@ -66,7 +66,7 @@ abstract class CRUDController
     }
 
     protected function _where(){
-        return ["ORDER" => ["nfc.count" => "ASC"] ];
+        return [];
     }
 
     protected function _data($list, $start){
