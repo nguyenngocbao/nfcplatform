@@ -15,7 +15,6 @@
         "ext-zlib": "*",
         "ext-simplexml": "*",
         "ext-intl": "*",
-        "ext-fileinfo": "*",
         "ext-pcre": "*",
         "psr/log": "^1.0",
         "catfan/medoo": "^2.1 ",
