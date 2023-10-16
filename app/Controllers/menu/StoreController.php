@@ -136,8 +136,8 @@ class StoreController extends CRUDController
     //UPDATE TEMPLATE
     public function updateTemplateAction(){
         //
-        if ($id = post_int('id') && $template_id = post_int('template_id')){
-            $r = db()->update($this->table(), ['template_id' => $template_id], ['id' => $id]);
+        if (post_int('id') && $template_id = post_int('template_id')){
+            $r = db()->update($this->table(), ['template_id' => $template_id], ['id' => post_int('id')]);
             echo_json(post());
         }
         echo_json_error();

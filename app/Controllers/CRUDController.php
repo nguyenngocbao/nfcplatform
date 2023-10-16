@@ -66,7 +66,7 @@ abstract class CRUDController
     }
 
     protected function _where(){
-        return [];
+        return ["ORDER" => ["nfc.count" => "ASC"] ];
     }
 
     protected function _data($list, $start){
@@ -116,7 +116,6 @@ abstract class CRUDController
         if ($id = post_int('id')) {
             $r = db()->update($this->table(), $_d, ['id' => $id]);
         } else {
-
             $r = db()->insert($this->table(), $_d);
 
         }
