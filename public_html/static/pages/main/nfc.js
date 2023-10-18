@@ -17,7 +17,7 @@ jQuery(document).ready(function () {
 
     $('#copy').on('click', function (e) {
         let content = $('#view-url-text').val();
-        console.log(content);
+        write_nfc(content);
         navigator.clipboard.writeText(content);
     });
 
@@ -39,7 +39,6 @@ jQuery(document).ready(function () {
             success: function (response) {
                 console.log(response)
                 if (response.err === 1) {
-
                 } else {
                     getList();
                 }
@@ -226,4 +225,13 @@ function getInputParam(properties,name,form){
             });
             return values;
     }
+}
+
+function write_nfc(text){
+    const ndef = new NDEFReader();
+    ndef.write({
+        records: [{ recordType: "url", data: text }]
+    })
+        .then(() => alert("write success"))
+        .catch(err => alert("ERROR - " + err.message));
 }

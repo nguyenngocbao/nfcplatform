@@ -117,7 +117,6 @@ abstract class CRUDController
             $r = db()->update($this->table(), $_d, ['id' => $id]);
         } else {
             $r = db()->insert($this->table(), $_d);
-
         }
 
         if ($r->rowCount()) {

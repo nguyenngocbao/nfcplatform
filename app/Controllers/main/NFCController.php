@@ -101,5 +101,22 @@ class NFCController extends CRUDController
         return ["ORDER" => ["nfc.count" => "ASC"] ];
     }
 
+    //UPDATE
+    public function updateAction(){
+        $_d = $this->parseData();
+
+        if ($id = post_int('id')) {
+            $r = db()->update($this->table(), $_d, ['id' => $id]);
+        } else {
+            $r = db()->insert($this->table(), $_d);
+            $id = db()->id();
+        }
+
+        if ($r->rowCount()) {
+            echo_json_success($id);
+        }
+        echo_json_error();
+    }
+
 
 }
