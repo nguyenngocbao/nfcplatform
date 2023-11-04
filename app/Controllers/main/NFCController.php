@@ -3,6 +3,7 @@
 namespace App\Controllers\main;
 
 use App\Controllers\CRUDController;
+use Ramsey\Uuid\Uuid;
 
 class NFCController extends CRUDController
 {
@@ -104,16 +105,20 @@ class NFCController extends CRUDController
     //UPDATE
     public function updateAction(){
         $_d = $this->parseData();
+        $data = [];
 
         if ($id = post_int('id')) {
             $r = db()->update($this->table(), $_d, ['id' => $id]);
         } else {
-            $r = db()->insert($this->table(), $_d);
-            $id = db()->id();
+
+            $_d['id'] = Uuid::uuid4() -> toString();
+            $r = db() ->insert($this->table(), $_d);
+            $id = $_d['id'];
         }
 
         if ($r->rowCount()) {
-            echo_json_success($id);
+            $data = ['id' => $id, 'url' => config('app.url.gateway').'/'.$id ];
+            echo_json_success($data);
         }
         echo_json_error();
     }

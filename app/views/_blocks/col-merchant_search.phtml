@@ -1,9 +1,0 @@
-<div class="form-group">
-    <label class="control-label">Merchant</label>
-    <select name="merchant_search" id="merchant_search" class="form-filter form-control select2">
-        <option value="0">Chọn Merchant</option>
-        <?php foreach ($merchant as $v) : ?>
-            <option value="<?= $v['id'] ?>"><?= concat($v['id'], strip_tags($v['name'])) ?></option>
-        <?php endforeach; ?>
-    </select>
-</div>

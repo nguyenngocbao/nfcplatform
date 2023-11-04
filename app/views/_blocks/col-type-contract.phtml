@@ -1,9 +1,0 @@
-<div class="form-group">
-    <label class="control-label">Loại HĐ</label>
-    <select name="<?=$name?>" id="<?=$name?>" class="form-filter form-control">
-        <option value="0">Chọn Loại HĐ</option>
-        <?php foreach (config('info.type_contract') as $k=>$v) : ?>
-            <option value="<?= $k ?>"><?= $v ?></option>
-        <?php endforeach; ?>
-    </select>
-</div>

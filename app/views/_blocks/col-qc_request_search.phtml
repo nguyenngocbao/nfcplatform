@@ -1,9 +1,0 @@
-<div class="form-group">
-    <label class="control-label">Yêu cầu bổ sung thông tin</label>
-    <select name="qc_request_search" id="qc_request_search" class="form-filter form-control">
-        <option value="0">Chọn Trạng thái</option>
-        <?php foreach (config('info.qc_request') as $k=>$v) : ?>
-            <option value="<?=$k?>"><?=$v?></option>
-        <?php endforeach; ?>
-    </select>
-</div>   

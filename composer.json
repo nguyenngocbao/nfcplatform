@@ -21,7 +21,9 @@
         "altorouter/altorouter": "^2.0",
         "divineomega/do-file-cache": "^2.0",
         "filp/whoops": "^2.14",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "aws/aws-sdk-php": "^3.283",
+        "ramsey/uuid": "^4.2"
     },
     "autoload": { 
         "psr-4": {

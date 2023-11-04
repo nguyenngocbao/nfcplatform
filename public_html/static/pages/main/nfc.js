@@ -17,7 +17,7 @@ jQuery(document).ready(function () {
 
     $('#copy').on('click', function (e) {
         let content = $('#view-url-text').val();
-        write_nfc(content);
+        //write_nfc(content);
         navigator.clipboard.writeText(content);
     });
 
@@ -40,9 +40,11 @@ jQuery(document).ready(function () {
                 console.log(response)
                 if (response.err === 1) {
                 } else {
-                    getList();
+                    write_nfc(response.data.url);
+                    //getList();
+                    //$('#modalAdd').modal('hide');
                 }
-                $('#modalAdd').modal('hide');
+
             },
             error: function (error) {
                 console.log(error);
@@ -234,4 +236,20 @@ function write_nfc(text){
     })
         .then(() => alert("write success"))
         .catch(err => alert("ERROR - " + err.message));
+}
+function read(){
+    const ndef = new NDEFReader();
+    ndef.scan()
+        .then(() => {
+            ndef.onreadingerror = err => nfc.logger("Read failed");
+            ndef.onreading = evt => {
+                const decoder = new TextDecoder();
+                for (let record of evt.message.records) {
+                    alert("Record type: " + record.recordType);
+                    alert("Record encoding: " + record.encoding);
+                    alert("Record data: " + decoder.decode(record.data));
+                }
+            };
+        })
+        .catch(err => alert("Read error - " + err.message));
 }

@@ -155,7 +155,6 @@ function view(string $template, $data = []) {
         'page'     => $page,
         'customer' => $data['is_customer_view'] ? block('customer-view') : '',
         'header'   => block('header'),
-        'templates'=> block('templates'),
         'siderbar' => block('siderbar', ['get_action' => $get_action, 'menu' => config('menu')])
     ]);
 }

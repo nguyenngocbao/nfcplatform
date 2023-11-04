@@ -5,7 +5,6 @@
  */
 return [
     'debug' => env('debug'),
-    
     'sub_domain'  => env('sub_domain'),
     'view_static' => env('view_static'),
     'version' => '1.0.0',
@@ -21,16 +20,6 @@ return [
         'scale_2_percent' => 50,
         'split'           => '|||',
     ],
-        
-    'email' => [
-        'url'        => '',
-        'wsAccount'  => 'a',
-        'wsPassword' => 'a',
-        'dataSign'   => 'a',
-        'from'       => '',
-        'listEmail'  => '',
-    ],
-    
     'profile_time_log' => 26,                                               //
     'path_profile_db'  => realpath(__DIR__ . '/../../') . '/logs/db.pro',
     'url' => [

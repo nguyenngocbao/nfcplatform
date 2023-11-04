@@ -1,9 +1,0 @@
-<div class="form-group">
-    <label class="control-label">Nguồn xử lý</label>
-    <select name="source_verify_search" id="source_verify_search" class="form-filter form-control select2" multiple style="width:100%">
-        <option value="0">Chọn nguồn xử lý</option>
-        <?php foreach (source_verify() as $k=>$v) : ?>
-            <option value="<?= $k ?>"><?= $v ?></option>
-        <?php endforeach; ?>
-    </select>
-</div>
