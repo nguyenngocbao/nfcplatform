@@ -49,7 +49,7 @@ class IndexController
 
         //insert customer
 
-        insert_action_log('IndexController@login', true);
+        //insert_action_log('IndexController@login', true);
         if ($login_uri = session('login_uri')) {
             unset($_SESSION['login_uri']);
             redirect($login_uri);
@@ -64,17 +64,17 @@ class IndexController
         foreach ($role_id_list as $role_id) {
             $role = db_get('role', ['permission', 'implementation_unit_list', 'city_list', 'source_list'], ['id' => $role_id, 'is_active' => 1]);
             if ($role) {
-                $_permission = $role['permission'] ? json_decode($role['permission'], true) : [];
-                $permission = array_unique_merge($permission, $_permission);
+                //$_permission = $role['permission'] ? json_decode($role['permission'], true) : [];
+                //$permission = array_unique_merge($permission, $_permission);
 
-                $_implementation_unit_list = $role['implementation_unit_list'] ? split($role['implementation_unit_list']) : [];
-                $implementation_unit_list = array_unique_merge($implementation_unit_list, $_implementation_unit_list);
-
-                $_city_list = $role['city_list'] ? split($role['city_list']) : [];
-                $city_list = array_unique_merge($city_list, $_city_list);
-
-                $_source_list = $role['source_list'] ? split($role['source_list']) : [];
-                $source_list = array_unique_merge($source_list, $_source_list);
+//                $_implementation_unit_list = $role['implementation_unit_list'] ? split($role['implementation_unit_list']) : [];
+//                $implementation_unit_list = array_unique_merge($implementation_unit_list, $_implementation_unit_list);
+//
+//                $_city_list = $role['city_list'] ? split($role['city_list']) : [];
+//                $city_list = array_unique_merge($city_list, $_city_list);
+//
+//                $_source_list = $role['source_list'] ? split($role['source_list']) : [];
+//                $source_list = array_unique_merge($source_list, $_source_list);
             }
         }
 

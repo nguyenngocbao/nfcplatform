@@ -107,10 +107,10 @@ class NFCController extends CRUDController
         $_d = $this->parseData();
         $data = [];
 
+
         if ($id = post_int('id')) {
             $r = db()->update($this->table(), $_d, ['id' => $id]);
         } else {
-
             $_d['id'] = Uuid::uuid4() -> toString();
             $r = db() ->insert($this->table(), $_d);
             $id = $_d['id'];

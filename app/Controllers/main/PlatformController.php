@@ -42,6 +42,7 @@ class PlatformController extends CRUDController
 
     protected function param()
     {
+
         return [];
 
     }

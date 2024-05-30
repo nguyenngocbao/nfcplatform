@@ -13,6 +13,7 @@ return [
 //
 //        ],
         'NFC Device' => ['icon' => 'cpu', 'url' => '/main/nfc'],
+        'NFC Type' => ['icon' => 'cpu', 'url' => '/main/nfc_type'],
         'Platform' => ['icon' => 'package', 'url' => '/main/platform']
     ],
     'MENU-PLATFORM' => [

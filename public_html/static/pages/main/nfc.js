@@ -40,9 +40,9 @@ jQuery(document).ready(function () {
                 console.log(response)
                 if (response.err === 1) {
                 } else {
-                    write_nfc(response.data.url);
-                    //getList();
-                    //$('#modalAdd').modal('hide');
+                    //write_nfc(response.data.url);
+                    getList();
+                    $('#modalAdd').modal('hide');
                 }
 
             },
